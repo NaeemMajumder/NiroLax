@@ -93,7 +93,7 @@ type SilkProps = {
 };
 
 function SilkPlane({ color = '#121214', sheen = '#c9a467', gloss = 38, scale = 2.4, exposure = 1, interactive = true, still = false }: SilkProps & { still?: boolean }) {
-  const { size, gl } = useThree();
+  const { size, gl, invalidate } = useThree();
   const mat = useRef<THREE.ShaderMaterial>(null);
   const mouse = useRef(new THREE.Vector2(0.5, 0.5));
   const uniforms = useMemo(
@@ -114,6 +114,10 @@ function SilkPlane({ color = '#121214', sheen = '#c9a467', gloss = 38, scale = 2
   // Colour changes animate rather than snap
   const target = useMemo(() => new THREE.Color(color), [color]);
   const targetSheen = useMemo(() => new THREE.Color(sheen), [sheen]);
+  // A still (non-animated) canvas only draws on demand: redraw it when the colours change
+  useEffect(() => {
+    if (still) invalidate();
+  }, [still, color, sheen, invalidate]);
 
   useEffect(() => {
     if (!interactive) return;

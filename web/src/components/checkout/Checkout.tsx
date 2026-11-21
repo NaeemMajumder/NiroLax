@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { notify } from '@/lib/toast';
 import { go, placeOrder, useDemo } from '@/lib/actions';
 import { asset } from '@/lib/asset';
-import { bdt, hasPhotos, pieceImage } from '@/lib/pieces';
+import { bdt, hasPhotos, pieceImage, sized } from '@/lib/pieces';
 import { usePieces } from '@/lib/catalogue';
 import { normPhone, useDB, type Customer, type DeliveryMethod, type PaymentMethod } from '@/lib/store';
 import { Lnk } from '@/components/ui/Lnk';
@@ -176,7 +176,7 @@ export function Checkout() {
                   <div className="relative h-20 w-16 shrink-0 overflow-hidden bg-graphite">
                     {hasPhotos(p) ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={pieceImage(p, 'front')!} alt="" className="absolute inset-0 h-full w-full object-cover" />
+                      <img src={sized(pieceImage(p, 'front')!, 240)} alt="" className="absolute inset-0 h-full w-full object-cover" />
                     ) : (
                       <Swatch tint={p.tint} className="absolute inset-0" />
                     )}

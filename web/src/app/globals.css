@@ -113,3 +113,16 @@ html.intro-lock, html.intro-lock body { overflow: hidden; }
 @media (pointer: fine) {
   html.has-cursor, html.has-cursor * { cursor: none !important; }
 }
+
+@keyframes herobar {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Short phones (e.g. 375 x 667): keep the piece and the headline from overlapping */
+@media (max-width: 767px) and (max-height: 740px) {
+  .hero-dek { display: none; }
+  .hero-title { font-size: 40px; }
+  .hero-suit { bottom: 46svh; height: 38svh; }
+  .hero-shadow { bottom: 46svh; }
+}

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { asset } from '@/lib/asset';
-import { bdt, hasPhotos, pieceImage, sheenFor } from '@/lib/pieces';
+import { bdt, hasPhotos, pieceImage, sheenFor, sized } from '@/lib/pieces';
 import { usePieces } from '@/lib/catalogue';
 import { Lnk } from '@/components/ui/Lnk';
 
@@ -93,11 +93,17 @@ export function Collection() {
                 >
                   <span className="font-display text-[15px] text-gold/80 italic">{p.no}</span>
                   <span className="flex items-center gap-4">
-                    <span
-                      className="h-10 w-8 shrink-0 md:hidden"
-                      style={{ background: `linear-gradient(135deg, ${p.tint}, ${sheenFor(p.tint)}55 55%, ${p.tint})` }}
-                      aria-hidden
-                    />
+                    {/* Phones: a small photo of the piece (the cloth colour until it has one) */}
+                    {hasPhotos(p) ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={sized(pieceImage(p, 'front')!, 160)} alt="" loading="lazy" className="h-14 w-[42px] shrink-0 bg-[#e6e4df] object-cover object-top md:hidden" />
+                    ) : (
+                      <span
+                        className="h-14 w-[42px] shrink-0 md:hidden"
+                        style={{ background: `linear-gradient(135deg, ${p.tint}, ${sheenFor(p.tint)}55 55%, ${p.tint})` }}
+                        aria-hidden
+                      />
+                    )}
                     <span className="font-display text-[20px] leading-tight text-ivory transition-transform duration-700 ease-(--ease-luxe) md:text-[clamp(24px,2.2vw,36px)] md:group-hover:translate-x-4">
                       {p.name}
                     </span>

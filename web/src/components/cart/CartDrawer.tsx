@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { asset } from '@/lib/asset';
-import { bdt, hasPhotos, pieceImage } from '@/lib/pieces';
+import { bdt, hasPhotos, pieceImage, sized } from '@/lib/pieces';
 import { usePieces } from '@/lib/catalogue';
 import { addToCart, openCart, removeFromCart, RESERVE_MS, useCartOpen, useDB } from '@/lib/store';
 import { notify } from '@/lib/toast';
@@ -32,7 +32,7 @@ function Line({ id, slug, size, price, addedAt }: { id: string; slug: string; si
       <div className="relative h-32 w-24 shrink-0 overflow-hidden bg-graphite">
         {hasPhotos(p) ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={pieceImage(p, 'front')!} alt="" className="absolute inset-0 h-full w-full object-cover" />
+          <img src={sized(pieceImage(p, 'front')!, 240)} alt="" className="absolute inset-0 h-full w-full object-cover" />
         ) : (
           <Swatch tint={p.tint} className="absolute inset-0" />
         )}

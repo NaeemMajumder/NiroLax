@@ -277,6 +277,11 @@ export function pieceImage(p: Pick<Piece, 'photos' | 'images'>, view: View = 'fr
   if (p.photos) return asset(`pieces/${p.photos}/${view}.webp`);
   return null;
 }
+/** A smaller copy of an uploaded photo: Cloudinary resizes on the fly; other images are returned unchanged */
+export function sized(url: string, width: number): string {
+  if (!url.includes('res.cloudinary.com/') || !url.includes('/image/upload/')) return url;
+  return url.replace('/image/upload/', `/image/upload/c_limit,w_${width},q_auto,f_auto/`);
+}
 export const hasPhotos = (p: Pick<Piece, 'photos' | 'images'>) => !!pieceImage(p, 'front');
 export const kinds: Kind[] = ['Tailoring', 'Evening', 'Ceremony'];
 
