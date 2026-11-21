@@ -18,7 +18,7 @@ import { LazySilk as Silk } from '@/components/gl/LazySilk';
  */
 const SLIDES = [
   { slug: 'midnight-tuxedo', cut: 'pieces/midnight-tuxedo/front-cut.webp', bg: '#0f0f11', sheen: '#b98d4f' },
-  { slug: 'bordeaux-smoking-jacket', cut: 'pieces/hero/bordeaux-cut.webp', bg: '#1c0a10', sheen: '#9b3445' },
+  { slug: 'graphite-double-breasted', cut: 'pieces/hero/graphite-cut.webp', bg: '#111214', sheen: '#9aa1a8' },
   { slug: 'champagne-draped-gown', cut: 'pieces/hero/champagne-cut.webp', bg: '#17130d', sheen: '#d9bd8c' },
   { slug: 'ivory-raw-silk-sherwani', cut: 'pieces/hero/sherwani-cut.webp', bg: '#141312', sheen: '#e6dcc6' },
 ];
