@@ -1,8 +1,14 @@
 import express from 'express';
 import cors from 'cors';
-import helmet from 'helmet';
+import * as helmetModule from 'helmet';
 import cookieParser from 'cookie-parser';
-import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
+import { rateLimit, ipKeyGenerator } from 'express-rate-limit';
+import type { RequestHandler } from 'express';
+
+// helmet ships separate ESM and CommonJS builds; depending on how the host compiles,
+// its default export arrives either as the function or wrapped in `.default`.
+type Helmet = (options?: Record<string, unknown>) => RequestHandler;
+const helmet = ((helmetModule as unknown as { default?: Helmet }).default ?? helmetModule) as unknown as Helmet;
 import { connect } from './db.js';
 import { env, corsOrigins } from './env.js';
 import { seedIfEmpty } from './seed.js';
@@ -43,7 +49,7 @@ export function createApp() {
       limit: 600,
       standardHeaders: 'draft-8',
       legacyHeaders: false,
-      keyGenerator: (req) => ipKeyGenerator(req.ip ?? 'unknown'),
+      keyGenerator: (req: express.Request) => ipKeyGenerator(req.ip ?? 'unknown'),
       skip: () => env.NODE_ENV === 'test',
     }),
   );
